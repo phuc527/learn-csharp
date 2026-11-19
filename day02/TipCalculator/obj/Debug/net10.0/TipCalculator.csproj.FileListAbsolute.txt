@@ -1,0 +1,17 @@
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\bin\Debug\net10.0\TipCalculator.exe
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\bin\Debug\net10.0\TipCalculator.deps.json
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\bin\Debug\net10.0\TipCalculator.runtimeconfig.json
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\bin\Debug\net10.0\TipCalculator.runtimeconfig.dev.json
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\bin\Debug\net10.0\TipCalculator.dll
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\bin\Debug\net10.0\TipCalculator.pdb
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\obj\Debug\net10.0\TipCalculator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\obj\Debug\net10.0\TipCalculator.AssemblyInfoInputs.cache
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\obj\Debug\net10.0\TipCalculator.AssemblyInfo.cs
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\obj\Debug\net10.0\TipCalculator.csproj.CoreCompileInputs.cache
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\obj\Debug\net10.0\TipCalculator.sourcelink.json
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\obj\Debug\net10.0\TipCalculator.dll
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\obj\Debug\net10.0\refint\TipCalculator.dll
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\obj\Debug\net10.0\TipCalculator.pdb
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\obj\Debug\net10.0\TipCalculator.genruntimeconfig.cache
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\obj\Debug\net10.0\ref\TipCalculator.dll
+C:\Users\PhucNguyen\Desktop\Learn\C#\day02\TipCalculator\obj\Debug\net10.0\TipCalcu.B090D314.Up2Date
