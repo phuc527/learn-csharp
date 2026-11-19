@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Day 3 Lab</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 560px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+      section {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+      .error {
+        color: #b00020;
+      }
+      ol {
+        columns: 4;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Day 3: if / switch / loops</h1>
+
+    <section>
+      <h2>FizzBuzz</h2>
+      <form id="fb-form">
+        <label for="fb-n">Đến số (1-100):</label>
+        <input id="fb-n" type="number" min="1" max="100" value="15" required />
+        <button>Chạy</button>
+      </form>
+      <p id="fb-error" class="error" role="alert"></p>
+      <ol id="fb-list"></ol>
+    </section>
+
+    <section>
+      <h2>Đoán số (1-100)</h2>
+      <form id="g-form">
+        <label for="g-n">Số bạn đoán:</label>
+        <input id="g-n" type="number" min="1" max="100" required />
+        <button>Đoán</button>
+      </form>
+      <p id="g-result" aria-live="polite"></p>
+    </section>
+
+    <script>
+      const messages = {
+        higher: "Lớn hơn nữa ⬆️",
+        lower: "Nhỏ hơn nữa ⬇️",
+        correct: "🎉 Chính xác!",
+      };
+
+      document
+        .getElementById("fb-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const n = document.getElementById("fb-n").value;
+          const res = await fetch(`/api/fizzbuzz?n=${n}`);
+          const data = await res.json();
+          document.getElementById("fb-error").textContent = res.ok
+            ? ""
+            : data.error;
+          document.getElementById("fb-list").innerHTML = res.ok
+            ? data.map((x) => `<li>${x}</li>`).join("")
+            : "";
+        });
+
+      document
+        .getElementById("g-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const input = document.getElementById("g-n");
+          const res = await fetch("/api/guess", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ number: Number(input.value) }),
+          });
+          const data = await res.json();
+          document.getElementById("g-result").textContent = res.ok
+            ? `${messages[data.result]} (lần ${data.attempts}, đoán lệch xa ${data.farMisses} lần)`
+            : data.error;
+          input.select();
+        });
+    </script>
+  </body>
+</html>

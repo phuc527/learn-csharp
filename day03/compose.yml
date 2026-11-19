@@ -1,0 +1,57 @@
+# Day 3: app + Prometheus + Grafana.
+#   docker compose up -d --build              → chạy stack
+#   docker compose --profile load up -d       → thêm traffic giả để dashboard có số
+name: day03
+
+services:
+  weblab:
+    build: ./WebLab
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=7d
+      - --web.enable-lifecycle # reload config: curl -X POST localhost:9090/-/reload
+    volumes:
+      - ./ops/prometheus:/etc/prometheus:ro
+      - prometheus-data:/prometheus
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:12.1.0
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin} # production: đặt trong .env, không commit
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/weblab.json
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - ./ops/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./ops/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+
+  # Traffic giả: đoán số ngẫu nhiên + vài request lỗi 400. Chỉ chạy khi dùng --profile load.
+  loadgen:
+    image: curlimages/curl:8.15.0
+    profiles: [load]
+    entrypoint: ["/bin/sh", "/loadgen.sh"]
+    volumes:
+      - ./ops/loadgen.sh:/loadgen.sh:ro
+    depends_on:
+      - weblab
+
+volumes:
+  prometheus-data:
+  grafana-data:
