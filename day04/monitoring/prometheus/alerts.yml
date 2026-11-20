@@ -1,0 +1,39 @@
+# Xem tại http://localhost:9090/alerts. Gửi Slack/email cần Alertmanager (tuần 18).
+groups:
+  - name: seatly
+    rules:
+      - alert: SeatlyApiDown
+        expr: up{job="seatly-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "seatly-api không scrape được trong 1 phút"
+
+      - alert: SeatlyHighErrorRate
+        expr: |
+          sum(rate(http_server_request_duration_seconds_count{job="seatly-api", http_response_status_code=~"5.."}[5m]))
+            / sum(rate(http_server_request_duration_seconds_count{job="seatly-api"}[5m])) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Hơn 5% request trả 5xx"
+
+      - alert: SeatlyHighLatencyP95
+        expr: |
+          histogram_quantile(0.95, sum by (le) (rate(http_server_request_duration_seconds_bucket{job="seatly-api"}[5m]))) > 0.5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "p95 latency > 500ms"
+
+      # Alert nghiệp vụ: nhiều người giành cùng ghế → có thể cần giữ chỗ tạm (hold) hoặc báo hết vé.
+      - alert: SeatlyManyConflicts
+        expr: sum(rate(seatly_bookings_total{result="conflict"}[5m])) > 1
+        for: 5m
+        labels:
+          severity: info
+        annotations:
+          summary: "Hơn 1 lượt đặt trùng ghế mỗi giây"

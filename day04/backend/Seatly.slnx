@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Seatly.Api/Seatly.Api.csproj" />
+  <Project Path="Seatly.Tests/Seatly.Tests.csproj" />
+</Solution>

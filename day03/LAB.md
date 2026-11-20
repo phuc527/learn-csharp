@@ -57,7 +57,7 @@ WebLab (OpenTelemetry SDK) ──GET /metrics mỗi 15s── Prometheus ──P
 - **Metric nghiệp vụ** (`weblab_guesses_total{result}`, histogram `weblab_game_attempts`) mới là thứ sếp hỏi; metric kỹ thuật chỉ là phần nền.
 - **Label phải có ít giá trị** (`result` chỉ có 3 giá trị). Tuyệt đối không dùng userId hay số đoán làm label, vì mỗi giá trị khác nhau tạo ra một time series mới (cardinality explosion).
 - **Log JSON** (`AddJsonConsole`) để Loki/ELK parse được (tuần 18).
-- **Vận hành:** image ghim đúng version, mật khẩu Grafana lấy từ biến môi trường, dashboard không sửa được trên UI (`allowUiUpdates: false`), image `aspnet` chạy non-root sẵn.
+- **Vận hành:** image ghim đúng version, mật khẩu Grafana lấy từ biến môi trường, dashboard không sửa được trên UI (`allowUiUpdates: false`), container chạy user non-root (`USER $APP_UID` trong Dockerfile; image `aspnet` có sẵn user `app` nhưng mặc định vẫn chạy root).
 
 **Thử ngay:**
 

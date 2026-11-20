@@ -1,0 +1,8 @@
+apiVersion: 1
+providers:
+  - name: seatly
+    folder: Seatly
+    type: file
+    allowUiUpdates: false # dashboard là code: sửa file JSON rồi commit, không sửa trên UI
+    options:
+      path: /var/lib/grafana/dashboards
